@@ -8,7 +8,9 @@ import { useGetUserQuery } from "../../state/api";
 
 const Layout = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(
+    isNonMobile ? true : false
+  );
   const userId = useSelector(state => state.global.userId);
   const { data } = useGetUserQuery(userId);
 

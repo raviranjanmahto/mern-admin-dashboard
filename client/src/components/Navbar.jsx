@@ -55,7 +55,7 @@ const Navbar = ({ data, isSidebarOpen, setIsSidebarOpen }) => {
         </FlexBetween>
 
         {/* RIGHT SIDE */}
-        <FlexBetween gap='1.5rem'>
+        <FlexBetween gap='0.5rem'>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkModeOutlined sx={{ fontSize: "25px" }} />

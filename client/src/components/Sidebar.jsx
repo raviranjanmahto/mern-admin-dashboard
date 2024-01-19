@@ -16,7 +16,6 @@ import {
 import {
   SettingsOutlined,
   ChevronLeft,
-  ChevronRight,
   HomeOutlined,
   ShoppingCartOutlined,
   Groups2Outlined,
@@ -161,6 +160,7 @@ const Sidebar = ({
                       onClick={() => {
                         navigate(`/${lcText}`);
                         setActive(lcText);
+                        !isNonMobile && setIsSidebarOpen(!isSidebarOpen);
                       }}
                       sx={{
                         backgroundColor:
