@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
+const path = require("path");
 
 const AppError = require("./utils/appError");
 const clientRoutes = require("./routes/clientRoute");
@@ -13,10 +14,10 @@ const salesRoutes = require("./routes/salesRoute");
 const errorGlobalMiddleware = require("./middlewares/errorMiddleware");
 
 // data imports
-const { dataUser, dataProduct, dataProductStat } = require("./data");
-const User = require("./models/userModel");
-const Product = require("./models/productModel");
-const ProductStat = require("./models/productStatModel");
+// const { dataUser, dataProduct, dataProductStat } = require("./data");
+// const User = require("./models/userModel");
+// const Product = require("./models/productModel");
+// const ProductStat = require("./models/productStatModel");
 
 const app = express();
 // Body parser, reading data from body into req.body
@@ -26,8 +27,8 @@ app.use(cors());
 // Development logging
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
-// // Serving static file
-// app.use(express.static(path.join(__dirname, "public")));
+// Serving static file
+app.use(express.static(path.join(__dirname, "dist")));
 
 // ROUTES
 app.use("/api/v1/client", clientRoutes);
