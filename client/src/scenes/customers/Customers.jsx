@@ -65,7 +65,7 @@ const Customers = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={row => row._id}
-          rows={data?.customers || {}}
+          rows={data?.customers || []}
           columns={columns}
         />
       </Box>
