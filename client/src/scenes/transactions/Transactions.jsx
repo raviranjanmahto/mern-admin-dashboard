@@ -7,17 +7,18 @@ import DataGridCustomToolbar from "../../components/DataGridCustomToolbar";
 
 const Transactions = () => {
   const theme = useTheme();
-
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
   const [sort, setSort] = useState({});
   const [search, setSearch] = useState("");
 
   const [searchInput, setSearchInput] = useState("");
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 20,
+  });
 
-  const { data, isLoading } = useGetTransactionsQuery({
-    page,
-    pageSize,
+  const { data, isFetching } = useGetTransactionsQuery({
+    page: paginationModel.page,
+    pageSize: paginationModel.pageSize,
     sort: JSON.stringify(sort),
     search,
   });
@@ -67,17 +68,17 @@ const Transactions = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isFetching || !data}
           getRowId={row => row._id}
           rows={(data && data.transactions) || []}
           columns={columns}
           rowCount={(data && data.total) || 0}
           pageSizeOptions={[20, 50, 100]}
           pagination
+          paginationModel={paginationModel}
           paginationMode='server'
           sortingMode='server'
-          onPageChange={newPage => setPage(newPage)}
-          onPageSizeChange={newPageSize => setPageSize(newPageSize)}
+          onPaginationModelChange={setPaginationModel}
           onSortModelChange={newSortModel => setSort(...newSortModel)}
           slots={{ toolbar: DataGridCustomToolbar }}
           slotProps={{ toolbar: { searchInput, setSearchInput, setSearch } }}
