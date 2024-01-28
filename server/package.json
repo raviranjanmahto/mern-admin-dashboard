@@ -20,6 +20,7 @@
   "homepage": "https://github.com/raviranjanmahto/mern-admin-dashboard#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "country-iso-2-to-3": "^1.1.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^8.1.0"

@@ -1,3 +1,5 @@
+const getCountryISO3 = require("country-iso-2-to-3");
+
 const Product = require("../models/productModel");
 const Transaction = require("../models/transactionModel");
 const User = require("../models/userModel");
@@ -42,6 +44,20 @@ exports.getTransactions = catchAsync(async (req, res) => {
 });
 
 exports.getGeography = catchAsync(async (req, res) => {
-  const user = await User.find({});
-  res.status(200).json({ status: "success", customers });
+  const users = await User.find({});
+
+  const mappedLocations = users.reduce((acc, { country }) => {
+    const countryISO3 = getCountryISO3(country);
+    if (!acc[countryISO3]) acc[countryISO3] = 0;
+    acc[countryISO3]++;
+    return acc;
+  }, {});
+
+  const formattedLocations = Object.entries(mappedLocations).map(
+    ([country, count]) => {
+      return { id: country, value: count };
+    }
+  );
+
+  res.status(200).json({ status: "success", formattedLocations });
 });
