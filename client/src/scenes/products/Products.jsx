@@ -22,7 +22,7 @@ const Products = () => {
             "& >div": { gridColumn: isNonMobile ? undefined : "span 4" },
           }}
         >
-          {data?.products?.map(
+          {data?.productsWithStats?.map(
             ({
               _id,
               name,
