@@ -3,12 +3,24 @@ const getCountryISO3 = require("country-iso-2-to-3");
 const Product = require("../models/productModel");
 const Transaction = require("../models/transactionModel");
 const User = require("../models/userModel");
-const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const ProductStat = require("../models/productStatModel");
 
 exports.getProducts = catchAsync(async (req, res) => {
-  const products = await Product.find({});
-  res.status(200).json({ status: "success", products });
+  const products = await Product.find();
+
+  const productsWithStats = await Promise.all(
+    products.map(async product => {
+      const stat = await ProductStat.find({
+        productId: product._id,
+      });
+      return {
+        ...product._doc,
+        stat,
+      };
+    })
+  );
+  res.status(200).json({ status: "success", productsWithStats });
 });
 
 exports.getCustomers = catchAsync(async (req, res) => {
