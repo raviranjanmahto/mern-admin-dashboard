@@ -42,7 +42,7 @@ app.use(express.json({ limit: "10kb" }));
 // if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 // Serving static file
-app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(path.join(__dirname, "..client/dist")));
 
 // ROUTES
 app.use("/api/v1/client", clientRoutes);
@@ -52,7 +52,7 @@ app.use("/api/v1/sales", salesRoutes);
 
 // Serve the main HTML file for any client-side route
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "..client/dist", "index.html"));
 });
 
 app.all("*", (req, res, next) =>
