@@ -50,6 +50,11 @@ app.use("/api/v1/general", generalRoutes);
 app.use("/api/v1/management", managementRoutes);
 app.use("/api/v1/sales", salesRoutes);
 
+// Serve the main HTML file for any client-side route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
 app.all("*", (req, res, next) =>
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404))
 );
