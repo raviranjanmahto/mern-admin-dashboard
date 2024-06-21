@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 // const morgan = require("morgan");
 const path = require("path");
+const cors = require("cors");
 
 const { rateLimit } = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -18,6 +19,15 @@ const salesRoutes = require("./routes/salesRoute");
 const errorGlobalMiddleware = require("./middlewares/errorMiddleware");
 
 const app = express();
+
+// Allow requests from specific origins (replace with your Netlify domain)
+const corsOptions = {
+  origin: "http://raviranjan-mern-admin-dashboard.vercel.app",
+  methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 
 // Limit request from same API
 const apiLimiter = rateLimit({
@@ -43,6 +53,13 @@ app.use(express.json({ limit: "10kb" }));
 
 // Serving static file
 app.use(express.static(path.join(__dirname, "..client/dist")));
+
+// health check
+app.get("/", (req, res) => {
+  res
+    .status(200)
+    .json({ status: "success", message: "Server is listening..." });
+});
 
 // ROUTES
 app.use("/api/v1/client", clientRoutes);
