@@ -22,7 +22,7 @@ const app = express();
 
 // Allow requests from specific origins (replace with your Netlify domain)
 const corsOptions = {
-  origin: "http://raviranjan-mern-admin-dashboard.vercel.app",
+  origin: "https://raviranjan-mern-admin-dashboard.vercel.app",
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
